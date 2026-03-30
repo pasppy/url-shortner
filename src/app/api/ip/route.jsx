@@ -6,8 +6,8 @@ export async function GET(req) {
     };
 
     try {
-        const city = req.headers.get("x-vercel-ip-city") || null;
-        const countryCode = req.headers.get("x-vercel-ip-country") || null;
+        let city = req.headers.get("x-vercel-ip-city") || null;
+        let countryCode = req.headers.get("x-vercel-ip-country") || null;
 
         city = city ? decodeURIComponent(city) : "Unknown";
         const country = countryMap[countryCode] || countryCode || "Unknown";
