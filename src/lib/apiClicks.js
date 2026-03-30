@@ -20,28 +20,28 @@ const storeClicksAndRedirect = async ({ id, original_url }) => {
     try {
         // get device info
         const device = parser.getResult()?.device?.type || "desktop"
-        let city = 'unknown', country = 'unknown';
+        let user_city = 'unknown', user_country = 'unknown';
 
         if (!isProd) {
             // fetch user network info 
             const res = await fetch("https://ipapi.co");
             const { city, country_name } = await res.json();
-            city = city;
-            country = country_name;
+            user_city = city;
+            user_country = country_name;
         }
         else {
             const res = await fetch("/api/ip");
             const { city, country } = await res.json();
-            city = city;
-            country = country;
+            user_city = city;
+            user_country = country;
         }
 
 
         // create entry
         await supabase.from("clicks").insert([{
             url_id: id,
-            city,
-            country,
+            city: user_city,
+            country: user_country,
             device
         }])
 
