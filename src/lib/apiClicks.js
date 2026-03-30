@@ -23,13 +23,14 @@ const storeClicksAndRedirect = async ({ id, original_url }) => {
 
         // fetch user network info 
         const res = await fetch("/api/ip");
+        const test = await res.json();
 
         let city = "Unknown";
         let country = "Unknown";
 
         if (res.ok) {
-            console.log("here");
-
+            console.log(res, test);
+            return;
             const data = await res.json();
             city = data?.city || city;
             country = data?.country || country;
@@ -44,7 +45,6 @@ const storeClicksAndRedirect = async ({ id, original_url }) => {
 
     } catch (error) {
         console.log("error storing clicks-", error?.error || error);
-        throw new error(error?.error || error);
     }
 
     // always redirect to original url
