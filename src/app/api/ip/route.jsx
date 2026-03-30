@@ -10,7 +10,7 @@ export async function GET() {
         const res = await fetch(process.env.IP_API);
 
         if (!res.ok) {
-            return Response.json({ error: "Failed to fetch IP data" }, { status: 500 });
+            return Response.json({ error: "Failed to fetch IP data", status: 500 });
         }
 
         const data = await res.json();

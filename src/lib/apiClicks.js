@@ -28,6 +28,8 @@ const storeClicksAndRedirect = async ({ id, original_url }) => {
         let country = "Unknown";
 
         if (res.ok) {
+            console.log("here");
+
             const data = await res.json();
             city = data?.city || city;
             country = data?.country || country;
@@ -42,6 +44,7 @@ const storeClicksAndRedirect = async ({ id, original_url }) => {
 
     } catch (error) {
         console.log("error storing clicks-", error?.error || error);
+        throw new error(error?.error || error);
     }
 
     // always redirect to original url

@@ -8,7 +8,7 @@ import { MoonLoader } from 'react-spinners'
 import { useTheme } from 'next-themes'
 
 const domain = process.env.
-    NEXT_PUBLIC_DOMAIN_NAME || `http://localhost:3000/`
+    NEXT_PUBLIC_DOMAIN_NAME || `http://:3000/`
 
 const UrlCard = ({ url, fetchUrls }) => {
     const { theme } = useTheme();
