@@ -3,8 +3,6 @@ const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
 const DeviceStats = ({ stats }) => {
 
-    console.log(stats.map(s => s.device));
-
     const deviceCount = stats.reduce((acc, item) => {
 
         if (acc[item.device])

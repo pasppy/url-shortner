@@ -1,8 +1,7 @@
 import { UAParser } from "ua-parser-js";
 
-const { supabaseBrowserClient, supabaseUrl } = require("./supabase/client");
+const { supabaseBrowserClient } = require("./supabase/client");
 const supabase = supabaseBrowserClient();
-
 
 const getClicks = async (urlIds) => {
     const { data, error } = await supabase.from("clicks").select("*").in("url_id", urlIds);
@@ -22,8 +21,8 @@ const storeClicksAndRedirect = async ({ id, original_url }) => {
         // get device info
         const device = parser.getResult()?.device?.type || "desktop"
 
-        // fetch user network info ( ip-api.com ) 
-        const res = await fetch("http://ip-api.com/json");
+        // fetch user network info 
+        const res = await fetch("/api/ip");
         const { city, country } = await res.json();
 
         // create entry
@@ -34,12 +33,13 @@ const storeClicksAndRedirect = async ({ id, original_url }) => {
             device
         }])
 
-        // redirect to original url
-        window.location.href = original_url;
-
     } catch (error) {
         console.log("error storing clicks-", error);
+        throw new Error(error);
     }
+
+    // always redirect to original url
+    window.location.href = original_url;
 }
 
 export { getClicks, storeClicksAndRedirect }
