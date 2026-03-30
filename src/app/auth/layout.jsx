@@ -1,10 +1,11 @@
 "use client"
 import { urlContext } from '@/context'
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useContext, useEffect } from 'react'
+import { Suspense, useContext, useEffect } from 'react'
 import { BarLoader } from 'react-spinners';
 
-const AuthLayout = ({ children }) => {
+const AuthLayoutContent = ({ children }) => {
+
     const router = useRouter();
     const searchParams = useSearchParams();
     const longUrl = searchParams.get("createNew");
@@ -25,6 +26,16 @@ const AuthLayout = ({ children }) => {
         return null;
 
     return children
+
+}
+
+
+const AuthLayout = ({ children }) => {
+    return (
+        <Suspense>
+            <AuthLayoutContent children={children} />
+        </Suspense>
+    )
 }
 
 export default AuthLayout
