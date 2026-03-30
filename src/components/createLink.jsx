@@ -64,7 +64,7 @@ const CreateLink = () => {
             const blob = await new Promise((res) => canvas.toBlob(res));
 
             // api call 
-            await fnCreateUrl();
+            await fnCreateUrl(blob);
 
         } catch (error) {
             const newErrors = {};

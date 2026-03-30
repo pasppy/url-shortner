@@ -59,12 +59,8 @@ const getLongUrl = async (id) => {
 const createUrl = async ({ title, original_url, custom_url, user_id }, qrcode) => {
 
     const short_url = Math.random().toString(36).substring(2, 8);
+    
     const fileName = `qr-${short_url}`
-
-    const { error: uploadError } = await supabase.storage.from("qr_codes").upload(fileName, qrcode)
-
-    if (uploadError) throw new Error(uploadError.message);
-
     const qr = `${supabaseUrl}/storage/v1/object/public/qr_codes/${fileName}`
 
     const { data, error } = await supabase.from("urls").insert([{
@@ -75,13 +71,16 @@ const createUrl = async ({ title, original_url, custom_url, user_id }, qrcode) =
         user_id,
         qr
     }]).select();
-
     if (error) {
         console.log(error?.message || error);
         if ((error?.message || error).includes("duplicate key value"))
             throw new Error("custom link already in use, try a different one");
         throw new Error(error?.message || error);
     }
+
+    // upload qr only if link was created
+    const { error: uploadError } = await supabase.storage.from("qr_codes").upload(fileName, qrcode)
+    if (uploadError) throw new Error(uploadError.message);
 
     return data;
 }
