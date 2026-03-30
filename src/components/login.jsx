@@ -32,7 +32,7 @@ const Login = () => {
     })
 
     // custom supabase auth hook
-    const { data, error, fn: fnLogin } = useAuth(login,);
+    const { data, error, fn: fnLogin } = useAuth(login, formData);
 
     useEffect(() => {
         if (data) {

@@ -16,7 +16,7 @@ const Auth = () => {
       }
 
 
-      <Tabs defaultValue="login" className="sm:w-[400px] ">
+      <Tabs defaultValue="login" className="sm:w-100 ">
 
         <TabsList className={"w-full "}>
           <TabsTrigger value="login">Login</TabsTrigger>
