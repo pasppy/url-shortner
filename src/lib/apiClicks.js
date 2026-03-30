@@ -1,5 +1,5 @@
 import { UAParser } from "ua-parser-js";
-
+const isProd = process.env.NODE_ENV === "production";
 const { supabaseBrowserClient } = require("./supabase/client");
 const supabase = supabaseBrowserClient();
 
@@ -20,19 +20,23 @@ const storeClicksAndRedirect = async ({ id, original_url }) => {
     try {
         // get device info
         const device = parser.getResult()?.device?.type || "desktop"
+        let city = 'unknown', country = 'unknown';
 
-        // fetch user network info 
-        const res = await fetch("/api/ip");
-
-        let city = "Unknown";
-        let country = "Unknown";
-
-        if (res.ok) {
-            const data = await res.json();
-
-            city = data?.city || city;
-            country = data?.country || country;
+        if (!isProd) {
+            // fetch user network info 
+            const res = await fetch("https://ipapi.co");
+            const { city, country_name } = await res.json();
+            city = city;
+            country = country_name;
         }
+        else {
+            const res = await fetch("/api/ip");
+            const { city, country } = await res.json();
+            city = city;
+            country = country;
+        }
+
+
         // create entry
         await supabase.from("clicks").insert([{
             url_id: id,

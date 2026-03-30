@@ -1,18 +1,13 @@
-const ipApi = process.env.IP_API
 
-export async function GET() {
+export async function GET(req) {
     try {
-        const res = await fetch(ipApi);
+        const city = req.headers.get("x-vercel-ip-city") || "Unknown";
+        const country = req.headers.get("x-vercel-ip-country") || "Unknown";
 
-        if (!res.ok) {
-            throw new Error("Failed to fetch IP data");
-        }
+        return Response.json({ city, country });
 
-        const data = await res.json();
-
-        return Response.json(data);
     } catch (error) {
         console.error("IP API ERROR:", error);
-        return Response.json({ error: error.message, status: 500 });
+        return Response.json({ error, status: 500 });
     }
 }
