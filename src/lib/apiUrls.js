@@ -78,6 +78,8 @@ const createUrl = async ({ title, original_url, custom_url, user_id }, qrcode) =
 
     if (error) {
         console.log(error?.message || error);
+        if ((error?.message || error).includes("duplicate key value"))
+            throw new Error("custom link already in use, try a different one");
         throw new Error(error?.message || error);
     }
 
