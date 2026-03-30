@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -13,7 +13,6 @@ import {
 export default function Home() {
   const router = useRouter()
   const [longUrl, setLongUrl] = useState("");
-
   const handleShorten = (e) => {
     e.preventDefault();
     if (longUrl) router.push(`/auth?createNew=${longUrl}`)

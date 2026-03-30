@@ -1,4 +1,4 @@
-const ipApi = process.env.NEXT_PUBLIC_IP_API
+const ipApi = process.env.IP_API
 
 /**
  * @route GET /api/ip
@@ -6,8 +6,18 @@ const ipApi = process.env.NEXT_PUBLIC_IP_API
  * @access Public
  */
 export async function GET() {
-    const res = await fetch(ipApi);
-    const data = await res.json();
+    try {
+        const res = await fetch(process.env.IP_API);
 
-    return Response.json(data);
+        if (!res.ok) {
+            return Response.json({ error: "Failed to fetch IP data" }, { status: 500 });
+        }
+
+        const data = await res.json();
+
+        return Response.json(data);
+
+    } catch (error) {
+        return Response.json({ error: "Server error", status: 500 });
+    }
 }

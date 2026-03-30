@@ -23,8 +23,15 @@ const storeClicksAndRedirect = async ({ id, original_url }) => {
 
         // fetch user network info 
         const res = await fetch("/api/ip");
-        const { city, country } = await res.json();
 
+        let city = "Unknown";
+        let country = "Unknown";
+
+        if (res.ok) {
+            const data = await res.json();
+            city = data?.city || city;
+            country = data?.country || country;
+        }
         // create entry
         await supabase.from("clicks").insert([{
             url_id: id,
@@ -34,8 +41,7 @@ const storeClicksAndRedirect = async ({ id, original_url }) => {
         }])
 
     } catch (error) {
-        console.log("error storing clicks-", error);
-        throw new Error(error);
+        console.log("error storing clicks-", error?.error || error);
     }
 
     // always redirect to original url
