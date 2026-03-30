@@ -19,7 +19,7 @@ import {
 import LocationStats from "@/components/location-stats";
 import DeviceStats from "@/components/device-stats";
 const domain = process.env.
-    NEXT_PUBLIC_DOMAIN_NAME
+    NEXT_PUBLIC_DOMAIN_NAME || `http://localhost:3000/`
 
 const Link = () => {
     const route = useRouter();
@@ -147,7 +147,7 @@ const Link = () => {
                             <CardTitle>Location Data</CardTitle>
                             <LocationStats stats={stats} />
                             <CardTitle>Device Info</CardTitle>
-                            <DeviceStats stats={stats} /> 
+                            <DeviceStats stats={stats} />
 
 
                         </CardContent> :
