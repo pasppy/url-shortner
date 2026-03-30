@@ -54,10 +54,10 @@ const UrlCard = ({ url, fetchUrls }) => {
                 className='h-32 object-contain self-start text-black  bg-white ring ring-blue-500 ' />
             <Link href={`/link/${url?.id}`} className='flex flex-col flex-1'>
                 <span className='text-3xl font-extrabold hover:underline cursor-pointer'>{url?.title}</span>
-                <span className='text-2xl text-blue-400 font-bold hover:underline cursor-pointer'>
+                <span className='text-2xl text-blue-400 font-bold hover:underline cursor-pointer wrap-break-word'>
                     {`${domain}${url?.custom_url || url?.short_url}`}
                 </span>
-                <span className=' hover:underline cursor-pointer'>{url?.original_url}</span>
+                <span className=' hover:underline cursor-pointer wrap-break-word'>{url?.original_url}</span>
                 <span className=' flex items-end text-sm font-extralight flex-1'>{new Date(url?.created_at).toLocaleString()}</span>
             </Link>
 

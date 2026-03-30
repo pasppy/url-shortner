@@ -29,6 +29,7 @@ const storeClicksAndRedirect = async ({ id, original_url }) => {
 
         if (res.ok) {
             const data = await res.json();
+
             city = data?.city || city;
             country = data?.country || country;
         }
