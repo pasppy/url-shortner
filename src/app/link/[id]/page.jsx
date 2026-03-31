@@ -80,17 +80,17 @@ const Link = () => {
             <div className="flex flex-col gap-8 sm:flex-row mt-2">
                 {/* url */}
                 <div className="flex flex-col gap-4 flex-1">
-                    <span className="text-6xl font-extrabold">{data?.title}</span>
+                    <span className="text-4xl font-extrabold">{data?.title}</span>
                     <a
                         href={`${domain}${data?.custom_url || data?.short_url}`} target="_blank"
-                        className="text-3xl text-blue-400 font-bold hover:underline cursor-pointer">
+                        className="text-2xl text-blue-400 font-bold hover:underline cursor-pointer wrap-break-word">
                         {domain}{data?.custom_url || data?.short_url}
                     </a>
                     <span className="self-start">
                         <a
                             href={data?.original_url}
                             target="_blank"
-                            className="flex items-center gap-2 hover:underline "
+                            className="flex items-center gap-2 hover:underline  wrap-break-word"
                         >
                             <LinkIcon />
 
