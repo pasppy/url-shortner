@@ -1,11 +1,17 @@
-# 🔗 Shrtnr — Smart URL Shortener with Analytics [Demo](https://shrtnr-umber.vercel.app/)
+# 🔗 Shrtnr — Smart URL Shortener with Analytics
 
 A modern, production-ready URL shortener built with a focus on **performance, analytics, and clean architecture**.
 Generate short links, track clicks in real time, and understand user behavior with device and location insights.
 
 ---
 
-## 🚀 Features
+## 🚀 Demo
+
+https://shrtnr-umber.vercel.app/
+
+---
+
+## ✨ Features
 
 ### 🔹 Core Functionality
 
