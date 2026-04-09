@@ -24,12 +24,12 @@ const DeviceStats = ({ stats }) => {
 
     return (
 
-        <PieChart className='w-full max-w-125 max-h-[20vh] sm:max-h-[40vh] m-auto aspect-square' responsive>
+        <PieChart className=' z-5 g w-full max-w-125 max-h-[20vh] sm:max-h-[40vh] m-auto aspect-square' responsive>
             <Pie
                 data={devices.slice(0, 5)}
                 labelLine={false}
                 label={({ device, percent }) => (`${device}:${(percent * 100).toFixed(0)}%`)}
-                fill="#8884d8"
+                fill="#8884d8"  
                 dataKey="count"
                 isAnimationActive={true}
                 shape={MyCustomPie}

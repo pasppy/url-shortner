@@ -80,7 +80,7 @@ const Link = () => {
             <div className="flex flex-col gap-8 sm:flex-row mt-2">
                 {/* url */}
                 <div className="flex flex-col gap-4 flex-1">
-                    <span className="text-4xl font-extrabold">{data?.title}</span>
+                    <span className="text-5xl font-extrabold">{data?.title}</span>
                     <a
                         href={`${domain}${data?.custom_url || data?.short_url}`} target="_blank"
                         className="text-2xl text-blue-400 font-bold hover:underline cursor-pointer wrap-break-word">
@@ -104,20 +104,20 @@ const Link = () => {
                     <div className='flex gap-6 mt-6'>
                         <Button
                             variant='ghost'
-                            className={"scale-[160%]"}
+                            className={"scale-[140%]"}
                             onClick={() => navigator.clipboard.writeText(`${domain}${data?.custom_url || data?.short_url}`)}
                         >
                             <Copy />
                         </Button>
                         <Button
-                            className={"scale-[160%]"}
+                            className={"scale-[140%]"}
 
                             variant='ghost'
                             onClick={handleDownload}>
                             <Download />
                         </Button>
                         <Button
-                            className={"scale-[160%]"}
+                            className={"scale-[140%]"}
                             variant='ghost'
                             onClick={fnDelete}>
                             {loadingDelete ? <MoonLoader color={theme === "dark" ? "white" : "black"} size={14} /> : <Trash2 />}
@@ -129,7 +129,7 @@ const Link = () => {
                 </div>
 
                 {/* stats */}
-                <Card className="sm:w-3/5 ">
+                <Card className="sm:w-3/5">
                     <CardHeader >
                         <CardTitle className="font-extrabold text-4xl" >Stats</CardTitle>
                     </CardHeader>

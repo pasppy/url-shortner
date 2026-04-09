@@ -17,14 +17,14 @@ import { LinkIcon, LogOut, MoonIcon, SunIcon } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import { urlContext } from '@/context'
 import useAuth from '@/hooks/useAuth'
-import { logout, update } from '@/lib/apiAuth'
+import { logout } from '@/lib/apiAuth'
 
 
 const Header = () => {
     const router = useRouter();
     const { data: user } = useContext(urlContext);
     const { fn: fnLogout } = useAuth(logout);
-    const { theme, setTheme } = useTheme();
+    const { resolvedTheme, theme, setTheme } = useTheme();
     const [mounted, setMounted] = useState(false)
 
     useEffect(() => {
@@ -46,14 +46,14 @@ const Header = () => {
                 <div className='flex items-center gap-4'>
                     <Button size='icon-lg' variant='outline' className='cursor-pointer' onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
                         {
-                            theme === "light" ? <SunIcon /> : <MoonIcon />
+                            resolvedTheme === "light" ? <SunIcon /> : <MoonIcon />
                         }
                     </Button>
                     {!user ?
                         <Button onClick={() => router.push("/auth")} size='lg'>Login</Button>
                         :
                         <DropdownMenu>
-                            <DropdownMenuTrigger  >
+                            <DropdownMenuTrigger>
                                 <Avatar size='lg'>
                                     <AvatarImage src={`https://${user?.user_metadata?.profile_pic}`} className={"object-contain"} />
                                     <AvatarFallback>{user?.user_metadata?.name.split(" ")[0][0]}</AvatarFallback>

@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
+import CountUp from 'react-countup';
 import React, { useEffect, useState } from "react";
 import {
   Accordion,
@@ -9,10 +10,43 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
+import { Card, CardDescription, CardTitle } from "@/components/ui/card";
+import useFetch from "@/hooks/useFetch";
+import { getAllClicks, getAllURLs, getAllUsers } from "@/lib/apiMetric";
+
+const formatNumberForMetrics = (num) => {
+  if (num < 10) return num;
+  if (num < 100) return Math.floor(num / 10) * 10;
+  if (num < 1000) return Math.floor(num / 100) * 100;
+  if (num < 10000) return Math.floor(num / 1000);
+
+  return Math.floor(num / 1000);
+};
 
 export default function Home() {
   const router = useRouter()
+  const [totalUsers, setTotalUsers] = useState(0);
+  const [totalClicks, setTotalClicks] = useState(0);
+  const [linksGenerated, setLinksGenerated] = useState(0);
   const [longUrl, setLongUrl] = useState("");
+
+  const { loading: urlLoading, data: urlsData, fn: fnUrls } = useFetch(getAllURLs);
+  const { loading: clicksLoading, data: clicksData, fn: fnClick } = useFetch(getAllClicks);
+  const { loading: usersLoading, data: usersData, fn: fnUsers } = useFetch(getAllUsers);
+
+  useEffect(() => {
+    fnUrls();
+    fnClick();
+    fnUsers();
+  }, []);
+
+  useEffect(() => {
+
+    if (usersData) setTotalUsers(formatNumberForMetrics(usersData));
+    if (urlsData) setLinksGenerated(formatNumberForMetrics(urlsData.length));
+    if (clicksData) setTotalClicks(formatNumberForMetrics(clicksData.length));
+  }, [urlsData, clicksData, usersData])
+
   const handleShorten = (e) => {
     e.preventDefault();
     if (longUrl) router.push(`/auth?createNew=${longUrl}`)
@@ -39,6 +73,24 @@ export default function Home() {
           className={"sm:h-full max-md:p-6"}> Shorten</Button>
 
       </form>
+
+      {/* user metrics */}
+      <div className="bg-secondary p-8 rounded-md mt-16 gap-4 w-full grid sm:grid-cols-3" >
+        <Card className={"p-6"}>
+          <CardTitle className={""}>Total Users</CardTitle>
+          <CardDescription className={"text-4xl"}><CountUp end={totalUsers} duration={1.5} />+</CardDescription>
+        </Card>
+        <Card className={"p-6"}>
+          <CardTitle>Links Generated</CardTitle>
+          <CardDescription className={"text-4xl"}><CountUp end={linksGenerated} duration={1.5} />+</CardDescription>
+
+        </Card>
+        <Card className={"p-6"}>
+          <CardTitle>Total Clicks</CardTitle>
+          <CardDescription className={"text-4xl"}><CountUp end={totalClicks} duration={1.5} />+</CardDescription>
+
+        </Card>
+      </div>
 
       <img src="/banner.png" alt="" className="w-full my-11 md:px-11" />
 

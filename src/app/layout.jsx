@@ -31,7 +31,7 @@ export default function RootLayout({ children }) {
         className={`${montserrat.className} ${geistSans.variable}  antialiased`}
       >
         <UrlProvider>
-          <ThemeProvider attribute={"class"}>
+          <ThemeProvider attribute={"class"} defaultTheme="system" enableSystem >
             <main className="min-h-screen container max-w-7xl px-4 mx-auto">
               <Header />
               {children}
