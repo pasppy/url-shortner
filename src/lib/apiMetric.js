@@ -15,12 +15,13 @@ const getAllClicks = async () => {
     const { data, error } = await supabase.from("clicks").select("*");
 
     if (error) {
-        console.log("error fetching urls-", error?.message || error);
+        console.log("error fetching clicks-", error?.message || error);
         throw new Error(error?.message || error);
     }
 
-    return data;
+    return data;    
 }
+
 const getAllUsers = async () => {
     const { data, error } = await supabase.rpc('get_total_users');
 

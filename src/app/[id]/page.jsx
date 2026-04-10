@@ -39,7 +39,7 @@ const RedirectLink = () => {
 
     if (!loadingStats)
         return (
-            <div className="mt-32 text-xl lg:text-2xl font-extrabold flex flex-col md:flex-row gap-2 justify-center items-center">Redirecting to <span className="font-medium italic break-all text-center">{originalUrl}</span></div>)
+            <div className="mt-32 text-xl lg:text-2xl font-extrabold flex justify-center items-center">Redirecting to <span className="font-medium italic break-all text-center">{originalUrl}</span></div>)
 }
 
 export default RedirectLink

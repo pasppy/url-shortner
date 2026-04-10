@@ -40,8 +40,7 @@ export default function Home() {
     fnUsers();
   }, []);
 
-  useEffect(() => {
-
+  useEffect(() => { 
     if (usersData) setTotalUsers(formatNumberForMetrics(usersData));
     if (urlsData) setLinksGenerated(formatNumberForMetrics(urlsData.length));
     if (clicksData) setTotalClicks(formatNumberForMetrics(clicksData.length));

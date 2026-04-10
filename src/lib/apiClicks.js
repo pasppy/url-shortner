@@ -24,7 +24,7 @@ const storeClicksAndRedirect = async ({ id, original_url }) => {
 
         if (!isProd) {
             // fetch user network info 
-            const res = await fetch("https://ipapi.co");
+            const res = await fetch("https://ipapi.co/json");
             const { city, country_name } = await res.json();
             user_city = city;
             user_country = country_name;
@@ -35,6 +35,8 @@ const storeClicksAndRedirect = async ({ id, original_url }) => {
             user_city = city;
             user_country = country;
         }
+
+
 
 
         // create entry
