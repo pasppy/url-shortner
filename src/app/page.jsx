@@ -24,7 +24,8 @@ const formatNumberForMetrics = (num) => {
 };
 
 export default function Home() {
-  const router = useRouter()
+  const router = useRouter();
+  const [error, setError] = useState("");
   const [totalUsers, setTotalUsers] = useState(0);
   const [totalClicks, setTotalClicks] = useState(0);
   const [linksGenerated, setLinksGenerated] = useState(0);
@@ -40,7 +41,7 @@ export default function Home() {
     fnUsers();
   }, []);
 
-  useEffect(() => { 
+  useEffect(() => {
     if (usersData) setTotalUsers(formatNumberForMetrics(usersData));
     if (urlsData) setLinksGenerated(formatNumberForMetrics(urlsData.length));
     if (clicksData) setTotalClicks(formatNumberForMetrics(clicksData.length));
@@ -48,7 +49,13 @@ export default function Home() {
 
   const handleShorten = (e) => {
     e.preventDefault();
-    if (longUrl) router.push(`/auth?createNew=${longUrl}`)
+    if (longUrl) {
+      setError("")
+      router.push(`/auth?createNew=${longUrl}`)
+    }
+    else {
+      setError("*Provide a valid URL, to shorten it");
+    }
   }
 
   return (
@@ -58,18 +65,22 @@ export default function Home() {
         <br />you will ever need.
       </h2>
 
-      <form className=" sm:h-14 flex flex-col sm:flex-row w-full md:w-2/4 gap-2">
-        <Input
-          type={"url"}
-          value={longUrl}
-          onChange={(e) => setLongUrl(e.target.value)}
-          placeholder="Enter your long URL"
-          className={"bg-gray-200 max-md:p-3 h-full flex-1"} />
+      <form className=" sm:h-14 flex flex-col  sm:flex-row w-full md:w-2/4 gap-2">
+        <div className="flex-1 ">
+          <Input
+            type={"url"}
+            value={longUrl}
+            onChange={(e) => setLongUrl(e.target.value)}
+            placeholder="Enter your long URL"
+            className={"bg-gray-200 p-6"} />
+          <p className="text-red-400 text-sm">{error}</p>
+        </div>
+
         <Button
           type="submit"
           onClick={handleShorten}
           variant="destructive"
-          className={"sm:h-full max-md:p-6"}> Shorten</Button>
+          className={"p-6"}> Shorten</Button>
 
       </form>
 
