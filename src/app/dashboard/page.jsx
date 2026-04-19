@@ -14,8 +14,8 @@ import { BarLoader } from "react-spinners"
 
 const Dashboard = () => {
     const [searchFilter, setSearchFilter] = useState("");
-    const { data: user } = useContext(urlContext);
-    const { loading, error, data: urls, fn: fnUrls } = useFetch(getUrls, user?.id)
+    const { data: userData } = useContext(urlContext);
+    const { loading, error, data: urls, fn: fnUrls } = useFetch(getUrls, userData?.user?.id)
     const { loadingClicks, error: errorClicks, data: clicks, fn: fnClicks } = useFetch(getClicks, urls?.map(url => url.id))
 
     useEffect(() => {

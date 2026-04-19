@@ -26,8 +26,8 @@ const Link = () => {
     const { theme } = useTheme();
 
     const { id } = useParams();
-    const { data: user } = useContext(urlContext);
-    const { loading, data, error, fn } = useFetch(getUrlWithId, { id, userId: user?.id })
+    const { data: userData } = useContext(urlContext);
+    const { loading, data, error, fn } = useFetch(getUrlWithId, { id, userId: userData?.user?.id })
     const { loading: loadingStats, data: stats, fn: fnStats } = useFetch(getClicks, [id])
     const { loading: loadingDelete, fn: fnDelete } = useFetch(deleteUrl, id);
 

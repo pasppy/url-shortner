@@ -22,7 +22,7 @@ import { QRCodeCanvas } from "qrcode.react";
 
 const CreateLink = () => {
     const { theme } = useTheme();
-    const { data: user } = useContext(urlContext);
+    const { data: userData } = useContext(urlContext);
     const router = useRouter();
     const searchParams = useSearchParams();
     const longUrl = searchParams.get("createNew");
@@ -41,7 +41,7 @@ const CreateLink = () => {
         }))
     }
 
-    const { loading, error, data, fn: fnCreateUrl } = useFetch(createUrl, { ...formData, user_id: user?.id });
+    const { loading, error, data, fn: fnCreateUrl } = useFetch(createUrl, { ...formData, user_id: userData?.user?.id });
 
     // redirect to link page after creation
     useEffect(() => {

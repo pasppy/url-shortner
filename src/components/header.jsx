@@ -22,18 +22,19 @@ import { logout } from '@/lib/apiAuth'
 
 const Header = () => {
     const router = useRouter();
-    const { data: user } = useContext(urlContext);
+    const { data } = useContext(urlContext);
     const { fn: fnLogout } = useAuth(logout);
     const { resolvedTheme, theme, setTheme } = useTheme();
     const [mounted, setMounted] = useState(false)
 
-    useEffect(() => {
-        setMounted(true);
-    }, [])
-
     const handleLogout = async () => {
         await fnLogout();
     }
+
+    useEffect(() => {
+        setMounted(true);
+
+    }, [])
 
     if (!mounted) return null;
 
@@ -49,18 +50,18 @@ const Header = () => {
                             resolvedTheme === "light" ? <SunIcon /> : <MoonIcon />
                         }
                     </Button>
-                    {!user ?
+                    {!data?.user ?
                         <Button onClick={() => router.push("/auth")} size='lg'>Login</Button>
                         :
                         <DropdownMenu>
                             <DropdownMenuTrigger>
                                 <Avatar size='lg'>
-                                    <AvatarImage src={`https://${user?.user_metadata?.profile_pic}`} className={"object-contain"} />
-                                    <AvatarFallback>{user?.user_metadata?.name.split(" ")[0][0]}</AvatarFallback>
+                                    <AvatarImage src={data?.profile_pic} className={"object-cover"} />
+                                    <AvatarFallback>{data?.user?.user_metadata?.name.split(" ")[0][0]}</AvatarFallback>
                                 </Avatar>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent>
-                                <DropdownMenuLabel>{user?.user_metadata?.name}</DropdownMenuLabel>
+                                <DropdownMenuLabel>{data?.user?.user_metadata?.name}</DropdownMenuLabel>
                                 <DropdownMenuSeparator />
                                 <Link href={"/dashboard"}>
                                     <DropdownMenuItem>
